@@ -14,5 +14,77 @@
     let y =2;
     [x,y] = [y,x];
     console.log(x,y);
+    // 2、从函数中返回多个值
+    function example(){
+        return [1,2,3];
+    }
+
+    // var arr = example();
+    // console.log(Object.prototype.toString.call(arr));
+    var [a,b,c] = example();
+    console.log("a",a);
+    console.log("b",b);
+    console.log("c",c);
+
+    // 3、函数参数的定义
+    //有序参数
+    function f([x,y,z]){
+        console.log(x + ";" + y + ";" + z);
+    }
+    f([1,2,3]);
+    //无序参数
+    function f2({x,y,z}){
+        console.log(x + ";" + y + ";" + z);
+    }
+    f2({z:3,x:1,y:2});
+
+    //4、提取接JSON数据
+    //解构赋值对提取JSON对象中的数据，尤其有用
+    let jsonData = {
+        id:42,
+        status:"OK",
+        data:[867,5309]
+    };
+    let { id, status, data} = jsonData;
+    console.log("id",id);
+    console.log("status",status);
+    console.log("data",data);
+
+    //5、函数参数的默认值
+
+    function ajax(url,{
+        async=true,
+        cache=true
+    }){
+        console.log("url",url);
+        console.log("async",async);
+        console.log("cache",cache);
+    }
+
+    ajax("http://www.baidu.com",{cache:false});
+
+    //6、变量Map解构
+    const map = new Map();
+    map.set("first","hello");
+    map.set("second","world");
+
+    for(let [key,value] of map){
+        console.log(key + " is " + value);
+    }
+
+    //7、输入模块的指定方法(在加载模块时，往往需要指定输入哪些方法。解构赋值使得输入语句非常清晰)
+    const {sourceMapConsumer,sourceNode} = require("soource-map");
+
+  /*  个人理解：
+    ES6最好不要和ES5混用，否则有些代码很有歧义，在项目中，可以规定使用一种方式进行编写（如果是ES6，可以用babel来编译为ES5的语法）*/
+
+  function example2(){
+      return {
+          name:"zap",
+          age:28
+      };
+  }
+  // 以上例子，如果单纯看这个函数，在ES5中，返回的就是一个对象，但是如果用 let{name,age} = example2() 来接收的话，就是返回多个值，那么此函数的返回值就存在异议了。
+
 
 </script>
