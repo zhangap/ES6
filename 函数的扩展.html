@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数的扩展</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function log([x,y="world"]){
+        console.log(x + " " + y);
+    }
+
+    log(["hello","world"]);
+    log(["hello","China"]);
+    log(["hello",""]);
+
+
+    function Point(x=0,y=0){
+        this.x = x;
+        this.y = y;
+    }
+    var point = new Point();
+    console.log(point);
+
+
+    function foo({x,y=5} = {}){
+        console.log(x,y);
+    }
+    foo();
+
+
+    function m1({x=0,y=0} = {}){
+        return [x,y];
+    }
+
+    function m2({x,y} = {x:0,y:0}){
+        return [x,y];
+    }
+    console.log(m1());
+    console.log(m2());
+
+
+
+</script>
