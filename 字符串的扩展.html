@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>字符串的扩展</title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    //字符串unicode表示法(将码点放入大括号，就能正确解读该字符)
+    let name = "hell\u{6F}";
+    console.log("name",name);
+
+    //2、codePointAt方法
+    let s = "𠮷";
+    console.log(s.length);
+    console.log(s.charAt(0));
+    console.log(s.charAt(1));
+
+    // 4、字符串的遍历接口
+    for(let  codePoint of "foo"){
+        console.log(codePoint);
+    }
+</script>
