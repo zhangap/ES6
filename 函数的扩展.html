@@ -43,5 +43,173 @@
     console.log(m2());
 
 
+    function foo2(x=5,y=6){
+        console.log(x,y);
+    }
+    foo2(undefined,null);
+
+    //函数的length属性
+    let num1 = (function(a){}).length;
+    let num2 = (function(a=5){}).length;
+    let num3 = (function(a,b,c=5){}).length;
+    console.log(num1 + ";" + num2 + ";" + num3);
+    //结论：指定了默认值以后，函数的length属性将返回没有指定默认值的参数的个数，也就是说，指定了默认值后，length属性将失真。
+    //函数参数设置默认值时，当要设置伪参数。
+
+
+    //作用域
+    let foo1 = "outer";
+    function bar(func = () => foo1){
+        let foo1 = "inner";
+        console.log(func());
+    }
+    bar();
+
+
+    //作用域2
+    var name = "1";
+    function fooFn(x,y=function(){name=2;}){
+        var name = 3;
+        y();
+        console.log(name);
+    }
+    fooFn();
+    console.log(name);
+
+    //利用参数默认值，可以指定某个参数不得省略，如果省略就抛出一个错误
+    function throwIfMissing(){
+        throw new Error("Missing parameter");
+    }
+
+    function fooFn2(mustParam=throwIfMissing()){
+        return mustParam;
+    }
+    fooFn2("haha");
+
+
+    function add(...values){
+        console.log("类型",typeof values);
+        let sum = 0;
+        for(let val of values){
+            sum += val;
+        }
+        return sum;
+    }
+    console.log("add",add(1,2,3));
+    console.log("add",add(4,5,6,7));
+
+
+    function sortNumbers(){
+        return Array.prototype.slice.call(arguments).sort();
+    }
+
+    console.log("sortNumbers",sortNumbers(1,4,2,5,3));
+
+    function sortNumbers2(...nums){
+        return nums.sort();
+    }
+    console.log("sortNumbers2",sortNumbers2(1,4,2,5,3));
+
+
+
+    var f = function(){
+        console.log("hello");
+    };
+    console.log("函数名称" + f.name);
+
+
+    //箭头函数
+    var sum = (num1,num2) => num1 + num2;
+    console.log(sum(20,30));
+
+
+    var getTempItem = id =>({id:id,name:"zap"});
+    console.log(getTempItem("001"));
+
+    const  full = ({first,last}) => {let result = first + ";" + last; return result};
+    console.log(full({"first":"zap",last:"hello"}));
+
+
+    function foo4(){
+        setTimeout(()=>{
+            console.log("id",this.id);
+        },100);
+
+        setTimeout(function(){
+            console.log("id2",this.id);
+        },100);
+    }
+    var id = 21;
+    foo4.call({id:42});
+
+
+    function Timer(){
+        this.s1 =0;
+        this.s2 = 0;
+
+        //箭头函数
+        setInterval(()=>this.s1++,1000);
+        //普通函数
+        setInterval(function(){
+            this.s2++;
+        },1000);
+    }
+
+    var timer = new Timer();
+    setTimeout(() => console.log('s1: ', timer.s1), 3100);
+    setTimeout(() => console.log('s2: ', timer.s2), 3100);
+
+
+    //DOM函数可以让this指向固定化，这种特性有利于封装回调函数
+
+    var handler = {
+        id:"123456",
+        init:function(){
+            document.addEventListener("click",event=>this.doSomthing(event.type),false);
+        },
+        doSomthing:function(type){
+            console.log("Handing " + type + "for " + this.id);
+        }
+    };
+
+    handler.init();
+
+
+    function tailFactorial(n,total){
+        if(n ===1) return total;
+        return tailFactorial(n-1,n*total);
+    }
+
+    function factorial(n){
+        return tailFactorial(n,1);
+    }
+    debugger;
+    let result = factorial(5);
+    console.log(result);
+
+
+    //递归函数的优化
+    function trampoline(f) {
+        while (f && f instanceof Function) {
+            f = f();
+        }
+        return f;
+    }
+
+    function sum2(x, y) {
+        if (y > 0) {
+            return sum2.bind(null, x + 1, y - 1);
+        } else {
+            return x;
+        }
+    }
+
+    debugger;
+    trampoline(sum2(1, 100000));
+
+
+
+
+
 
 </script>

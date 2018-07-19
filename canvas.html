@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas画图</title>
+    <script src="js/zrender.js"></script>
+    <style>
+        body{
+            width:100%;
+            height:100%;
+            background:#000;
+        }
+        #main{
+            width:800px;
+            height:600px;
+            background:#fff;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+</body>
+<script>
+    window.onload = function(){
+        var zr = zrender.init(document.getElementById("main"));
+
+
+
+        var line = new zrender.Polyline({
+            shape:{
+                points:[[0,0]]
+            }
+        });
+        line.animateTo({
+            position: [100, 100]
+        }, function () {
+            // done
+        });
+
+        [10,100],[300,500]
+
+
+        zr.add(line);
+    }
+</script>
+</html>
